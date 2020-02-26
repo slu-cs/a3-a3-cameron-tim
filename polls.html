@@ -18,35 +18,43 @@
       <input type="text" name="left">
       <button type="submit">Submit an option</button>
     </form>
-
     <div id="history"></div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script>
 
+    <script>
       // Respond to submit events
       $('form').on('submit', function(event)  {
+        $(document).ready(function()
+        {
+            var element = '<input type="text" id="textbox">';
+            var count = 0;
+            $("#vote").on("click", function(event)
+            {
+                event.preventDefault();
+                count++;
+                console.log(count);
+            });
+        });
         const form = $(this);  // JQuery ibject representing the form
         event.preventDefault();  // dont really submit the form
 
         // Create a new list
-        const list = $('<ul></ul>');
+        const list = $('<ul class = "list-group list-group-flush"></ul>');
 
         // Translate each input value into a list item
         const inputs = form.find('input');  // JQuery object representing all of the inputs
         for (let input of inputs)  {
           input = $(input)  // Turn into JQuery Object
-          const li = $(`<li>${input.val()}</li>`);  // New list item
+          const li = $(`<li class = "list-group-item">${input.val()}   <input type="button" value="Vote" id="vote"></li> `);  // New list item
           list.append(li);  // add it to the list
           input.val('');  // reset the fields so user doesnt have to erase whats in there after every submit
         }
-        const p = $(`<button>Vote</button>`);
+        const p = $(`<div></div>`);
 
         // Add to the page
         $('#history').append(p);
         $('#history').append(list);
       });
-
     </script>
   </body>
 </html>

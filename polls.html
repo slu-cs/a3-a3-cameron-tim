@@ -23,25 +23,27 @@
 
     <button id="submit">Submit Entire Question</button>
     <div id="history"></div>
-    
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <script>
+
       // Respond to submit events
       $('form').on('submit', function(event)  {
-        $(document).ready(function()
-        {
-            var element = '<input type="text" id="textbox">';
-            var count = 0;
-            $("#vote").on("click", function(event)
-            {
-                event.preventDefault();
-                count++;
-                console.log(count);
-            });
-        });
-        const form = $(this);  // JQuery ibject representing the form
+        const form = $(this);  // JQuery object representing the form
         event.preventDefault();  // dont really submit the form
+
+        const list = $('<div class ="option_sec"></div>');
+        const input = form.find('#anOption');  // JQuery object representing all of the inputs
+
+      
+
+
+
+
+
+
+        });
 
         // Create a new list
         const list = $('<ul class = "list-group list-group-flush"></ul>');

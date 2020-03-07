@@ -2,5 +2,4 @@
 CS332 Assignment #3
 
 Citations:
-
-hello
+looked up documentation for labeling input boxes. 

@@ -9,16 +9,21 @@
   </head>
   <body>
     <h1 class = "bg-success">Poll</h1>
-    <form>
-      <input type="text" name="left">
-      <button type="submit">Enter a question</button>
+
+    <form id="enter-a-question">
+      <label>Enter a Question Here </label>
+      <input type="text" id="aQuestion">
     </form>
 
-    <form>
-      <input type="text" name="left">
-      <button type="submit">Submit an option</button>
+    <form id="enter-an-option">
+      <label>Enter an Option Here </label>
+      <input type="text" id="anOption">
+      <button type="addAnswer">Submit an option</button>
     </form>
+
+    <button id="submit">Submit Entire Question</button>
     <div id="history"></div>
+    
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <script>

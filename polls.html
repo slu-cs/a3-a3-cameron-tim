@@ -36,32 +36,20 @@
         const list = $('<div class ="option_sec"></div>');
         const input = form.find('#anOption');  // JQuery object representing all of the inputs
 
-      
+        const option_ = $(`<div id="option">${input.val()}</div>`);  // New list item
+        list.append(option_);
 
+        input.val(''); // reset the fields so user doesnt have to erase whats in there after every submit
 
+        // create a list to tally votes
+        tally = [];
+        tally.push(0);
 
-
-
+        // Add to the page
+        $('#history').append(list);
 
         });
 
-        // Create a new list
-        const list = $('<ul class = "list-group list-group-flush"></ul>');
-
-        // Translate each input value into a list item
-        const inputs = form.find('input');  // JQuery object representing all of the inputs
-        for (let input of inputs)  {
-          input = $(input)  // Turn into JQuery Object
-          const li = $(`<li class = "list-group-item">${input.val()}   <input type="button" value="Vote" id="vote"></li> `);  // New list item
-          list.append(li);  // add it to the list
-          input.val('');  // reset the fields so user doesnt have to erase whats in there after every submit
-        }
-        const p = $(`<div></div>`);
-
-        // Add to the page
-        $('#history').append(p);
-        $('#history').append(list);
-      });
     </script>
   </body>
 </html>

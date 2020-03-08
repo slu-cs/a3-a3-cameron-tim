@@ -8,7 +8,8 @@
 
   </head>
   <body>
-    <h1 class = "bg-success">Poll</h1>
+    <div id="pollcreation">
+    <h1 class="bg-success text-center">Poll by Cameron & Tim</h1>
 
     <form id="enter-a-question">
       <label>Enter a Question Here </label>
@@ -17,38 +18,76 @@
 
     <form id="enter-an-option">
       <label>Enter an Option Here </label>
-      <input type="text" id="anOption">
-      <button type="addAnswer">Submit an option</button>
+      <input type="text" id="option">
+      <button>Submit an Option</button>
     </form>
 
-    <button id="submit">Submit Entire Question</button>
     <div id="history"></div>
+    <button id="submit">Submit Entire Question</button>
+  </div>
+    <!-- div to use after we submit a question -->
+    <div id="submitquestion" class="postsubmition"></div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <script>
+      const tally = []
 
       // Respond to submit events
       $('form').on('submit', function(event)  {
+
         const form = $(this);  // JQuery object representing the form
         event.preventDefault();  // dont really submit the form
 
-        const list = $('<div class ="option_sec"></div>');
-        const input = form.find('#anOption');  // JQuery object representing all of the inputs
+        // Create a new list
+        const list = $('<div class ="optionsec"></div>');
+        const input = form.find('#option');  // JQuery object representing all of the inputs
 
-        const option_ = $(`<div id="option">${input.val()}</div>`);  // New list item
-        list.append(option_);
+        const option_ = $(`<div id="anOption">${input.val()}</div>`);  // New list item
 
         input.val(''); // reset the fields so user doesnt have to erase whats in there after every submit
-
-        // create a list to tally votes
-        tally = [];
         tally.push(0);
+        list.append(option_);
 
         // Add to the page
         $('#history').append(list);
+      });
 
-        });
+
+      // Respond to when I submit the entire question
+      $('#submit').on('click', function(event)  {
+
+        const question1 = $('#enter-a-question').find('#aQuestion');
+        event.preventDefault();
+
+        const q = $(`<h2>Question: ${question1.val()}</h2>`);
+        $('#submitquestion').append(q);
+
+        const holderanswer = $(`<div></div>`);
+
+        let i = 0
+        while (i < tally.length) {
+          const options_section = $('<div class= "optionsec"></div>');
+          let a = $('#history').find('#anOption');
+
+          options_section.append(a);
+          const pick = $(`<button type="button" class="btn btn-outline-success" id="${i}" >Vote</button>`);
+
+
+          options_section.append(pick);
+          const count = $(`<div class="count col-auto">${tally[i]}</div>`);
+
+
+          options_section.append(count);
+          holderanswer.append(options_section);
+          i ++;
+        };
+
+        $('#submitquestion').append(holderanswer);
+
+      });
+
+      // Need to have a response that adds up numbers of clicks on PICK and displays the tally
 
     </script>
   </body>

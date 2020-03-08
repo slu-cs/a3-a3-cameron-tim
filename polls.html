@@ -1,4 +1,4 @@
-<!-- Example with a loop over a JQuery object. -->
+<!-- a3 - Cameron and Tim -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,22 +9,23 @@
   </head>
   <body>
     <div id="pollcreation">
-    <h1 class="bg-success text-center">Poll by Cameron & Tim</h1>
+      <h1 class="bg-success text-center">Poll by Cameron & Tim</h1>
+      <div class="alert alert-primary" role="alert">Create a Poll: Be sure to add every option for the question before clicking "Submit Entire Question"!</div>
 
-    <form id="enter-a-question">
-      <label>Enter a Question Here </label>
-      <input type="text" id="aQuestion">
-    </form>
+      <form id="enter-a-question">
+        <label>Enter a Question Here </label>
+        <input type="text" id="aQuestion">
+        <button id="submit">Submit Entire Question</button>
+      </form>
 
-    <form id="enter-an-option">
-      <label>Enter an Option Here </label>
-      <input type="text" id="option">
-      <button>Submit an Option</button>
-    </form>
+      <form id="enter-an-option">
+        <label>Enter an Option Here </label>
+        <input type="text" id="option">
+        <button>Add an Option</button>
+      </form>
 
-    <div id="history"></div>
-    <button id="submit">Submit Entire Question</button>
-  </div>
+      <div id="history"></div>
+    </div>
     <!-- div to use after we submit a question -->
     <div id="submitquestion" class="postsubmition"></div>
 
@@ -39,56 +40,52 @@
         const form = $(this);  // JQuery object representing the form
         event.preventDefault();  // dont really submit the form
 
+        // find the option that was input by user
+        const input = form.find('#option');  // JQuery object representing all of the inputs
+        const option_ = $(`<div id="anOption">${input.val()}</div>`);  // New div content
+
         // Create a new list
         const list = $('<div class ="optionsec"></div>');
-        const input = form.find('#option');  // JQuery object representing all of the inputs
-
-        const option_ = $(`<div id="anOption">${input.val()}</div>`);  // New list item
-
-        input.val(''); // reset the fields so user doesnt have to erase whats in there after every submit
-        tally.push(0);
         list.append(option_);
+
+        tally.push(0);  // zero votes
+        input.val(''); // reset the fields so user doesnt have to erase whats in there after every submit
 
         // Add to the page
         $('#history').append(list);
       });
 
 
-      // Respond to when I submit the entire question
+      // Respond to when the user clicks 'Submit Entire Question'
       $('#submit').on('click', function(event)  {
+        const reservedforoption = $(`<div></div>`);
 
         const question1 = $('#enter-a-question').find('#aQuestion');
         event.preventDefault();
+        const qVal = $(`<h2>Question: ${question1.val()}</h2>`);
+        $('#submitquestion').append(qVal);
 
-        const q = $(`<h2>Question: ${question1.val()}</h2>`);
-        $('#submitquestion').append(q);
-
-        const holderanswer = $(`<div></div>`);
-
+        // loop through the tally array
         let i = 0
         while (i < tally.length) {
-          const options_section = $('<div class= "optionsec"></div>');
-          let a = $('#history').find('#anOption');
-
-          options_section.append(a);
+          const options_section = $('<div class="optionsec"></div>');
+          let option1 = $('#history').find('#anOption');
           const pick = $(`<button type="button" class="btn btn-outline-success" id="${i}" >Vote</button>`);
+          const tallyup = $(`<div class="count">${tally[i]}</div>`);
 
 
+          options_section.append(option1);
           options_section.append(pick);
-          const count = $(`<div class="count col-auto">${tally[i]}</div>`);
-
-
-          options_section.append(count);
-          holderanswer.append(options_section);
+          options_section.append(tallyup);
+          reservedforoption.append(options_section);
           i ++;
         };
 
-        $('#submitquestion').append(holderanswer);
+        $('#submitquestion').append(reservedforoption);
 
       });
 
       // Need to have a response that adds up numbers of clicks on PICK and displays the tally
-
     </script>
   </body>
 </html>

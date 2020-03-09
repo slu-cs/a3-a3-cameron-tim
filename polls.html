@@ -23,9 +23,11 @@
         <input type="text" id="option" >
         <button class = "btn btn-outline-secondary">Add an Option</button>
       </form>
+      <p></p>
+      <div id="history" class = "xcol-5"></div>
+      <h1 id = "question"></h1>
+      <div id="submitquestion" class="postsubmition col-3"></div>
 
-      <div id="history"></div>
-      <div id="submitquestion" class="postsubmition"></div>
     </div>
 
     <!-- div to use after we submit a question -->
@@ -47,7 +49,7 @@
         const option_ = $(`<div id="anOption">${input.val()}</div>`);  // New div content
 
         // Create a new list
-        const list = $('<div class ="optionsec"></div>');
+        const list = $('<div class ="optionsec border rounded col-6"></div>');
         list.append(option_);
 
         tally.push(0);  // zero votes
@@ -69,21 +71,18 @@
 
         //make it so a suser can only enter one question
         if(q < 1){
-          $('#submitquestion').prepend(qVal);
+          $('#question').prepend(qVal);
           q++;
         }
 
         // loop through the tally array
         let i = 0
+        const options_section = $('<div class="optionsec"></div>');
         while (i < tally.length) {
-          const options_section = $('<div class="optionsec"></div>');
+
           let option1 = $('#history').find('#anOption');
-          const pick = $(`<button type="button" class="btn btn-outline-success" id="${i}" >Vote</button>`);
-
-
-          const tallyup = $(`<div class="count">${tally[i]}</div>`);
-
-
+          const pick = $(`<button type="button" class="btn btn-outline-success float-right" id="${i}" >Vote</button>`);
+          const tallyup = $(`<div class="count font-weight-bold">${tally[i]}</div>`);
           options_section.append(option1);
           options_section.append(pick);
           options_section.append(tallyup);
@@ -92,20 +91,17 @@
         };
 
         $('#submitquestion').append(reservedforoption);
-
       });
 
+      // response that adds up numbers of clicks on PICK and displays the tally
+      $('#options_section').on('click', 'button', function(event) {
+        let count = $(this).closest('div').find('.count').text();
+        // console.log(count);
+        count = Number(count.trim())
+        $(this).closest('div').find('.count').html(` ${count + 1}`);
 
-      $('pick').on('click', 'button', function(event) {
-       let id = $(this).attr('id');
-       id = parseInt(id);
-       tally[id] += 1;
-       $(this).closest('.optionssec').find('.tallyup').html(tally[id]);
      });
 
-
-
-      // Need to have a response that adds up numbers of clicks on PICK and displays the tally
 
     </script>
 

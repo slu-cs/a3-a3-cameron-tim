@@ -72,6 +72,8 @@
         //make it so a suser can only enter one question
         if(q < 1){
           $('#question').prepend(qVal);
+          $(this).closest('form').remove();
+          $(this).closest('form').remove();
           q++;
         }
 
@@ -82,7 +84,7 @@
 
           let option1 = $('#history').find('#anOption');
           const pick = $(`<button type="button" class="btn btn-outline-success float-right" id="${i}" >Vote</button>`);
-          const tallyup = $(`<div class="count font-weight-bold">${tally[i]}</div>`);
+          const tallyup = $(`<p class="count font-weight-bold">${tally[i]}</pp>`);
           options_section.append(option1);
           options_section.append(pick);
           options_section.append(tallyup);
@@ -91,14 +93,15 @@
         };
 
         $('#submitquestion').append(reservedforoption);
+
       });
 
       // response that adds up numbers of clicks on PICK and displays the tally
-      $('#options_section').on('click', 'button', function(event) {
-        let count = $(this).closest('div').find('.count').text();
+      $('#optionsec').on('click', 'button', function(event) {
+        let count = $(this).closest('p').find('.count').text();
         // console.log(count);
         count = Number(count.trim())
-        $(this).closest('div').find('.count').html(` ${count + 1}`);
+        $(this).closest('p').find('.count').html(` ${count + 1}`);
 
      });
 
